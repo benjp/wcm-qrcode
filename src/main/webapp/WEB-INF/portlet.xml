@@ -26,4 +26,14 @@
        <title>Gatein People</title>
      </portlet-info>
    </portlet>
+
+   <filter>
+     <filter-name>ResponseFilter</filter-name>
+     <filter-class>org.gatein.portal.people.portlet.ResponseFilter</filter-class>
+     <lifecycle>RENDER_PHASE</lifecycle>
+   </filter>
+   <filter-mapping>
+     <filter-name>ResponseFilter</filter-name>
+     <portlet-name>PeopleApplication</portlet-name>
+   </filter-mapping>
 </portlet-app>
