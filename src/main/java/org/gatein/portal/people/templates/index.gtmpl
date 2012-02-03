@@ -1,11 +1,25 @@
 Hello World
 
+<form id="users-form">
+<input id="users-search" type="text">
+</form>
+
 <div id="users">Users should come here</div>
 
 <script type="text/javascript">
 $(function() {
-  var url = "@{users()}";
-  $('#users').load(url, {}, function() {
-  })
+  var search = function(name) {
+    var url = "@{users()}";
+    $('#users').load(url, {name:name}, function() {
+    })
+  };
+
+  //
+  $("#users-form").on("keyup", "#users-search", function() {
+    search($(this).val());
+  });
+
+  //
+  search("");
 });
 </script>

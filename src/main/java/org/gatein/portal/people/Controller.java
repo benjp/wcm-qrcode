@@ -2,6 +2,7 @@ package org.gatein.portal.people;
 
 import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.services.organization.OrganizationService;
+import org.exoplatform.services.organization.Query;
 import org.exoplatform.services.organization.User;
 import org.exoplatform.services.organization.UserHandler;
 import org.juzu.Resource;
@@ -46,11 +47,17 @@ public class Controller
    }
    
    @Resource
-   public void users() throws Exception
+   public void users(String name) throws Exception
    {
+      Query query = new Query();
+      name = name.trim();
+      if (name != null && name.length() > 0)
+      {
+         query.setUserName("*" + name + "*");
+      }
+      ListAccess<User> userList = userHandler.findUsersByQuery(query);
       int from = 0;
       int size = 10;
-      ListAccess<User> userList = userHandler.findAllUsers();
       int length = Math.min(from + size, userList.getSize());
       users.render(Collections.singletonMap("users", userList.load(from, length)));
    }
