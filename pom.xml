@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.gatein.portal</groupId>
+  <artifactId>people</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Juzu Application</name>
+
+  <properties>
+    <maven.compiler.target>1.5</maven.compiler.target>
+    <maven.compiler.source>1.5</maven.compiler.source>
+  </properties>
+
+  <dependencies>
+
+    <!-- Application dependencies-->
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <scope>provided</scope>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+      <version>2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <scope>provided</scope>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-core</artifactId>
+      <scope>provided</scope>
+      <version>0.4.2</version>
+    </dependency>
+
+    <!-- Dependencies for war overlay -->
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-overlay-gatein</artifactId>
+      <type>war</type>
+      <scope>provided</scope>
+      <version>0.4.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-overlay-liferay</artifactId>
+      <type>war</type>
+      <scope>provided</scope>
+      <version>0.4.2</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>people</finalName>
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArguments>
+            <sourcepath>${project.basedir}/src/main/java</sourcepath>
+          </compilerArguments>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>gatein</id>
+            <configuration>
+              <classifier>gatein</classifier>
+              <webappDirectory>/Users/julien/java/juzu/target/checkout/archetype/target/gatein</webappDirectory>
+              <overlays>
+                <overlay>
+                  <groupId>org.juzu</groupId>
+                  <artifactId>juzu-overlay-gatein</artifactId>
+                </overlay>
+              </overlays>
+            </configuration>
+            <goals>
+              <goal>war</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>liferay</id>
+            <configuration>
+              <classifier>liferay</classifier>
+              <webappDirectory>/Users/julien/java/juzu/target/checkout/archetype/target/liferay</webappDirectory>
+              <overlays>
+                <overlay>
+                  <groupId>org.juzu</groupId>
+                  <artifactId>juzu-overlay-liferay</artifactId>
+                  <excludes>
+                    <!-- Empty to have /META-INF/context.xml copied -->
+                  </excludes>
+                </overlay>
+              </overlays>
+            </configuration>
+            <goals>
+              <goal>war</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
