@@ -25,7 +25,7 @@ $(function () {
 
   //
   $("#people").on("click", ".user", function () {
-    $(this).siblings().removeClass("selected");
+    $("#users .user").removeClass("selected");
     $(this).addClass("selected");
     $("#groups-search input[type=hidden]").val($(this).attr("id"));
     searchGroups();

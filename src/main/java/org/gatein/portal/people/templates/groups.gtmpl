@@ -1,25 +1,26 @@
 <% groups.each { group -> %>
-  <div class="group">
-  <div>${group.groupName}</div>
-  <%
-    def a = memberships[group.id];
-    if (a != null)
-    {
-      %>
-        <ul>
-          <% a.each { type, id -> %>
-            <li><span>${type}</span><a href="@{removeMembership(id=id)}">&times;</a></li>
-          <% } %>
-        </ul>
-        <ul>
-          <% membershipTypes.each { type ->
-             if (a[type] == null) {
-          %>
-            <li><span>${type}</span><a href="@{addMembership(type=type,groupId=group.id,userName=userName)}">+</a></li>
-          <% } } %>
-        </ul>
-      <%
-    }
-  %>
-  </div>
+  <tr>
+    <td class="group"><h2>${group.groupName}</h2>
+    <%
+      def a = memberships[group.id];
+      if (a != null)
+      {
+        %>
+          <ul>
+            <% a.each { type, id -> %>
+              <li><span>${type}</span><a href="@{removeMembership(id=id)}">&times;</a></li>
+            <% } %>
+          </ul>
+          <ul>
+            <% membershipTypes.each { type ->
+               if (a[type] == null) {
+            %>
+              <li><span>${type}</span><a href="@{addMembership(type=type,groupId=group.id,userName=userName)}">+</a></li>
+            <% } } %>
+          </ul>
+        <%
+      }
+    %>
+    </td>
+  </tr>
 <% } %>

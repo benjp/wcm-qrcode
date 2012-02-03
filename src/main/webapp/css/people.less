@@ -3,9 +3,12 @@
 @import "reset.less";
 @import "type.less";
 @import "forms.less";
+@import "tables.less";
 
 #people {
-  .selected {
-    background-color: red;
+  tbody#users, tbody#groups {
+    td:hover, td.selected {
+      background-color: @grayLighter;
+    }
   }
 }

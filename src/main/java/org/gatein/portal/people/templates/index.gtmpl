@@ -1,21 +1,37 @@
 <div id="people">
 
-<form id="users-search">
-  <fieldset>
-    <input class="input-medium search-query" type="text"/>
-  </fieldset>
-</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        <form id="users-search">
+          <fieldset>
+            <input class="input-medium search-query" type="text"/>
+          </fieldset>
+        </form>
+      </th>
+    </tr>
+  </thead>
+  <tbody id="users">
+  </tbody>
+</table>
 
-<form id="groups-search">
-  <fieldset>
-    <input class="input-medium search-query" type="text"/>
-    <input name="userName" type="hidden"/>
-  </fieldset>
-</form>
-
-<div id="users">Users should come here</div>
-
-<div id="groups">Groups should come here</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        <form id="groups-search">
+          <fieldset>
+            <input class="input-medium search-query" type="text"/>
+            <input name="userName" type="hidden"/>
+          </fieldset>
+        </form>
+      </th>
+    </tr>
+  </thead>
+  <tbody id="groups">
+  </tbody>
+</table>
 
 <script type="text/javascript">
 People = {
