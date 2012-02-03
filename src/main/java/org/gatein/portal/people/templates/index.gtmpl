@@ -1,1 +1,11 @@
 Hello World
+
+<div id="users">Users should come here</div>
+
+<script type="text/javascript">
+$(function() {
+  var url = "@{users()}";
+  $('#users').load(url, {}, function() {
+  })
+});
+</script>
