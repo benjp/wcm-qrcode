@@ -1,0 +1,3 @@
+<% groups.each { group -> %>
+  <div class="group">${group.groupName}</div>
+<% } %>

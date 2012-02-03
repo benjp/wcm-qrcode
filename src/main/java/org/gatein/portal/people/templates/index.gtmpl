@@ -1,25 +1,47 @@
+<div id="people">
 Hello World
 
-<form id="users-form">
+<form>
 <input id="users-search" type="text">
+<input id="groups-search" type="text">
 </form>
 
 <div id="users">Users should come here</div>
 
+<div id="groups">Groups should come here</div>
+
 <script type="text/javascript">
 $(function() {
-  var search = function(name) {
+  var searchUsers = function(name) {
     var url = "@{users()}";
     $('#users').load(url, {name:name}, function() {
     })
   };
+  var searchGroups = function(name) {
+    var url = "@{groups()}";
+    $('#groups').load(url, {name:name}, function() {
+    })
+  };
 
   //
-  $("#users-form").on("keyup", "#users-search", function() {
-    search($(this).val());
+  $("#people").on("keyup", "#users-search", function() {
+    searchUsers($(this).val());
   });
 
   //
-  search("");
+  $("#people").on("keyup", "#groups-search", function() {
+    searchGroups($(this).val());
+  });
+
+  //
+  $("#people").on("click", ".user", function() {
+    alert("click on user");
+  });
+
+  // Init UI
+  searchUsers("");
+  searchGroups("");
 });
 </script>
+
+</div>
