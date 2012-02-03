@@ -1,1 +1,3 @@
-The Users via ajax
+<% users.each { user -> %>
+  <div>${user.userName}</div>
+<% } %>
