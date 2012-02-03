@@ -35,7 +35,8 @@ $(function() {
 
   //
   $("#people").on("click", ".user", function() {
-    alert("click on user");
+    $("#people .user").removeClass("selected");
+    $(this).addClass("selected");
   });
 
   // Init UI
