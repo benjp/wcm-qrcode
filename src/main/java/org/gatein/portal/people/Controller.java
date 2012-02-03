@@ -5,10 +5,13 @@ import org.exoplatform.services.organization.Group;
 import org.exoplatform.services.organization.GroupHandler;
 import org.exoplatform.services.organization.Membership;
 import org.exoplatform.services.organization.MembershipHandler;
+import org.exoplatform.services.organization.MembershipType;
+import org.exoplatform.services.organization.MembershipTypeHandler;
 import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.organization.Query;
 import org.exoplatform.services.organization.User;
 import org.exoplatform.services.organization.UserHandler;
+import org.juzu.Action;
 import org.juzu.Resource;
 import org.juzu.View;
 import org.juzu.Path;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +57,9 @@ public class Controller
    /** . */
    private final MembershipHandler membershipHandler;
 
+   /** . */
+   private final MembershipTypeHandler membershipTypeHandler;
+
    @Inject
    public Controller(OrganizationService orgService)
    {
@@ -60,6 +67,7 @@ public class Controller
       this.userHandler = orgService.getUserHandler();
       this.groupHandler = orgService.getGroupHandler();
       this.membershipHandler = orgService.getMembershipHandler();
+      this.membershipTypeHandler = orgService.getMembershipTypeHandler();
    }
 
    @View
@@ -98,34 +106,49 @@ public class Controller
       {
          userName = userName.trim();
       }
-      @SuppressWarnings("unchecked")
-      List<Group> list = (List<Group>)groupHandler.getAllGroups();
-      List<Group> groups = new ArrayList<Group>(list.size());
-      for (Group group : list)
+      LinkedHashSet<String> membershipTypes = new LinkedHashSet<String>();
+      for (MembershipType membershipType : (Collection<MembershipType>)membershipTypeHandler.findMembershipTypes())
+      {
+         membershipTypes.add(membershipType.getName());
+      }
+      List<Group> groups = new ArrayList<Group>();
+      Map<String, Map<String, String>> memberships = new HashMap<String, Map<String, String>>();
+      for (Group group : (List<Group>)groupHandler.getAllGroups())
       {
          if (groupName == null || groupName.length() == 0 || group.getGroupName().contains(groupName))
          {
             groups.add(group);
-         }
-      }
-      Map<String, List<String>> memberships = Collections.emptyMap();
-      if (userName != null && userName.length() > 0)
-      {
-         memberships = new HashMap<String, List<String>>();
-         Collection<Membership> membershipList = membershipHandler.findMembershipsByUser(userName);
-         for (Membership membership : membershipList)
-         {
-            List<String> a = memberships.get(membership.getGroupId());
-            if (a == null)
+            if (userName != null && userName.length() > 0)
             {
-               memberships.put(membership.getGroupId(), a = new ArrayList<String>());
+               Map<String, String> groupMemberships = new HashMap<String, String>();
+               for (Membership membership : (Collection<Membership>)membershipHandler.findMembershipsByUserAndGroup(userName, group.getId()))
+               {
+                  groupMemberships.put(membership.getMembershipType(), membership.getId());
+               }
+               memberships.put(group.getId(), groupMemberships);
             }
-            a.add(membership.getMembershipType());
          }
       }
       Map<String, Object> params = new HashMap<String, Object>();
+      params.put("userName", userName);
       params.put("groups", groups);
       params.put("memberships", memberships);
+      params.put("membershipTypes", membershipTypes);
       groupsTemplate.render(params);
+   }
+
+   @Action
+   public void removeMembership(String id) throws Exception
+   {
+      membershipHandler.removeMembership(id, true);
+   }
+
+   @Action
+   public void addMembership(String type, String groupId, String userName) throws Exception
+   {
+      Group group = groupHandler.findGroupById(groupId);
+      User user = userHandler.findUserByName(userName);
+      MembershipType membershipType = membershipTypeHandler.findMembershipType(type);
+      membershipHandler.linkMembership(user, group, membershipType, true);
    }
 }

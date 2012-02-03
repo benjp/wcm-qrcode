@@ -7,9 +7,16 @@
     {
       %>
         <ul>
-          <% a.each { membership -> %>
-            <li>${membership}</li>
+          <% a.each { type, id -> %>
+            <li><span>${type}</span><a href="@{removeMembership(id=id)}">&times;</a></li>
           <% } %>
+        </ul>
+        <ul>
+          <% membershipTypes.each { type ->
+             if (a[type] == null) {
+          %>
+            <li><span>${type}</span><a href="@{addMembership(type=type,groupId=group.id,userName=userName)}">+</a></li>
+          <% } } %>
         </ul>
       <%
     }
