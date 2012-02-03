@@ -1,5 +1,6 @@
 package org.gatein.portal.people;
 
+import org.exoplatform.services.organization.OrganizationService;
 import org.juzu.View;
 import org.juzu.Path;
 import org.juzu.template.Template;
@@ -10,9 +11,19 @@ import java.io.IOException;
 public class Controller
 {
 
+   /** . */
    @Inject
    @Path("index.gtmpl")
    Template index;
+
+   /** . */
+   private final OrganizationService orgService;
+
+   @Inject
+   public Controller(OrganizationService orgService)
+   {
+      this.orgService = orgService;
+   }
 
    @View
    public void index() throws IOException

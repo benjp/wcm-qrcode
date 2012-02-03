@@ -44,6 +44,20 @@
       <version>0.4.2</version>
     </dependency>
 
+    <!-- -->
+    <dependency>
+      <groupId>org.exoplatform.kernel</groupId>
+      <artifactId>exo.kernel.container</artifactId>
+      <version>2.3.4-GA</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.exoplatform.core</groupId>
+      <artifactId>exo.core.component.organization.api</artifactId>
+      <version>2.3.4-GA</version>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- Dependencies for war overlay -->
     <dependency>
       <groupId>org.juzu</groupId>
