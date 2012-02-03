@@ -7,7 +7,7 @@
   <groupId>org.gatein.portal</groupId>
   <artifactId>people</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>Juzu Application</name>
 
@@ -74,15 +74,16 @@
           </compilerArguments>
         </configuration>
       </plugin>
+    </plugins>
 
+    <pluginManagement>
+      <plugins>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <executions>
           <execution>
-            <id>gatein</id>
             <configuration>
-              <classifier>gatein</classifier>
-              <webappDirectory>/Users/julien/java/juzu/target/checkout/archetype/target/gatein</webappDirectory>
+              <webappDirectory>${project.build.directory}/gatein</webappDirectory>
               <overlays>
                 <overlay>
                   <groupId>org.juzu</groupId>
@@ -94,28 +95,48 @@
               <goal>war</goal>
             </goals>
           </execution>
-          <execution>
-            <id>liferay</id>
-            <configuration>
-              <classifier>liferay</classifier>
-              <webappDirectory>/Users/julien/java/juzu/target/checkout/archetype/target/liferay</webappDirectory>
-              <overlays>
-                <overlay>
-                  <groupId>org.juzu</groupId>
-                  <artifactId>juzu-overlay-liferay</artifactId>
-                  <excludes>
-                    <!-- Empty to have /META-INF/context.xml copied -->
-                  </excludes>
-                </overlay>
-              </overlays>
-            </configuration>
-            <goals>
-              <goal>war</goal>
-            </goals>
-          </execution>
         </executions>
       </plugin>
-    </plugins>
+      </plugins>
+    </pluginManagement>
+
   </build>
+
+  <profiles>
+    <profile>
+      <id>deploy</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.4</version>
+            <executions>
+              <execution>
+                <id>copy</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>org.gatein.portal</groupId>
+                      <artifactId>people</artifactId>
+                      <version>1.0-SNAPSHOT</version>
+                      <type>war</type>
+                      <overWrite>false</overWrite>
+                      <outputDirectory>/Users/julien/java/gatein-server/webapps</outputDirectory>
+                      <destFileName>people.war</destFileName>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

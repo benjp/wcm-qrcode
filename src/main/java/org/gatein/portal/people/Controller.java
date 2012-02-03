@@ -1,4 +1,4 @@
-package org.sample;
+package org.gatein.portal.people;
 
 import org.juzu.View;
 import org.juzu.Path;
@@ -13,7 +13,6 @@ public class Controller
    @Inject
    @Path("index.gtmpl")
    Template index;
-
 
    @View
    public void index() throws IOException
