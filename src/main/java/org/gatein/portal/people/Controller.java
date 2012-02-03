@@ -69,7 +69,7 @@ public class Controller
    }
    
    @Resource
-   public void users(String userName) throws Exception
+   public void findUsers(String userName) throws Exception
    {
       if (userName != null)
       {
@@ -88,7 +88,7 @@ public class Controller
    }
 
    @Resource
-   public void groups(String groupName, String userName) throws Exception
+   public void findGroups(String groupName, String userName) throws Exception
    {
       if (groupName != null)
       {

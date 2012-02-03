@@ -15,45 +15,12 @@ Hello World
 <div id="groups">Groups should come here</div>
 
 <script type="text/javascript">
-$(function() {
-  var searchUsers = function() {
-    var url = "@{users()}";
-    var args = {userName:$("#users-search input[type=text]").val()};
-    $('#users').load(url, args, function() {
-    })
-  };
-  var searchGroups = function(name, userName) {
-    var url = "@{groups()}";
-    var args = {
-      groupName:$("#groups-search input[type=text]").val(),
-      userName:$("#groups-search input[type=hidden]").val(),
-    };
-    $('#groups').load(url, args, function() {
-    })
-  };
-
-  //
-  $("#users-search").on("keyup", "input[type=text]", function() {
-    searchUsers();
-  });
-
-  //
-  $("#groups-search").on("keyup", "input[type=text]", function() {
-    searchGroups();
-  });
-
-  //
-  $("#people").on("click", ".user", function() {
-    $(this).siblings().removeClass("selected");
-    $(this).addClass("selected");
-    $("#groups-search input[type=hidden]").val($(this).attr("id"));
-    searchGroups();
-  });
-
-  // Init UI
-  searchUsers();
-  searchGroups();
-});
+People = {
+  urls : {
+    findUsers : "@{findUsers()}",
+    findGroups : "@{findGroups()}",
+  }
+};
 </script>
 
 </div>

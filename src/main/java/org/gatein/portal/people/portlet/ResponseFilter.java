@@ -27,16 +27,22 @@ public class ResponseFilter implements RenderFilter
       response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, css1);
 
       //
-      Element jQuery1 = response.createElement("script");
-      jQuery1.setAttribute("type", "text/javascript");
-      jQuery1.setAttribute("src", request.getContextPath() + "/js/jquery-1.7.1.min.js");
-      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, jQuery1);
+      Element jq = response.createElement("script");
+      jq.setAttribute("type", "text/javascript");
+      jq.setAttribute("src", request.getContextPath() + "/js/jquery-1.7.1.min.js");
+      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, jq);
 
       //
-      Element jQuery2 = response.createElement("script");
-      jQuery2.setAttribute("type", "text/javascript");
-      jQuery2.setAttribute("src", request.getContextPath() + "/js/less-1.2.1.min.js");
-      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, jQuery2);
+      Element people = response.createElement("script");
+      people.setAttribute("type", "text/javascript");
+      people.setAttribute("src", request.getContextPath() + "/js/people.js");
+      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, people);
+
+      //
+      Element less = response.createElement("script");
+      less.setAttribute("type", "text/javascript");
+      less.setAttribute("src", request.getContextPath() + "/js/less-1.2.1.min.js");
+      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, less);
 
       //
       chain.doFilter(request, response);
