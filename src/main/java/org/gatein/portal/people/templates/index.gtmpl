@@ -1,9 +1,13 @@
 <div id="people">
 Hello World
 
-<form>
-<input id="users-search" type="text">
-<input id="groups-search" type="text">
+<form id="users-search">
+<input type="text"/>
+</form>
+
+<form id="groups-search">
+<input type="text"/>
+<input name="userName" type="hidden"/>
 </form>
 
 <div id="users">Users should come here</div>
@@ -12,36 +16,43 @@ Hello World
 
 <script type="text/javascript">
 $(function() {
-  var searchUsers = function(name) {
+  var searchUsers = function() {
     var url = "@{users()}";
-    $('#users').load(url, {name:name}, function() {
+    var args = {userName:$("#users-search input[type=text]").val()};
+    $('#users').load(url, args, function() {
     })
   };
-  var searchGroups = function(name) {
+  var searchGroups = function(name, userName) {
     var url = "@{groups()}";
-    $('#groups').load(url, {name:name}, function() {
+    var args = {
+      groupName:$("#groups-search input[type=text]").val(),
+      userName:$("#groups-search input[type=hidden]").val(),
+    };
+    $('#groups').load(url, args, function() {
     })
   };
 
   //
-  $("#people").on("keyup", "#users-search", function() {
-    searchUsers($(this).val());
+  $("#users-search").on("keyup", "input[type=text]", function() {
+    searchUsers();
   });
 
   //
-  $("#people").on("keyup", "#groups-search", function() {
-    searchGroups($(this).val());
+  $("#groups-search").on("keyup", "input[type=text]", function() {
+    searchGroups();
   });
 
   //
   $("#people").on("click", ".user", function() {
-    $("#people .user").removeClass("selected");
+    $(this).siblings().removeClass("selected");
     $(this).addClass("selected");
+    $("#groups-search input[type=hidden]").val($(this).attr("id"));
+    searchGroups();
   });
 
   // Init UI
-  searchUsers("");
-  searchGroups("");
+  searchUsers();
+  searchGroups();
 });
 </script>
 

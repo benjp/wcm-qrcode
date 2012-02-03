@@ -3,6 +3,8 @@ package org.gatein.portal.people;
 import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.services.organization.Group;
 import org.exoplatform.services.organization.GroupHandler;
+import org.exoplatform.services.organization.Membership;
+import org.exoplatform.services.organization.MembershipHandler;
 import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.organization.Query;
 import org.exoplatform.services.organization.User;
@@ -14,8 +16,11 @@ import org.juzu.template.Template;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /** @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a> */
 public class Controller
@@ -45,12 +50,16 @@ public class Controller
    /** . */
    private final GroupHandler groupHandler;
 
+   /** . */
+   private final MembershipHandler membershipHandler;
+
    @Inject
    public Controller(OrganizationService orgService)
    {
       this.orgService = orgService;
       this.userHandler = orgService.getUserHandler();
       this.groupHandler = orgService.getGroupHandler();
+      this.membershipHandler = orgService.getMembershipHandler();
    }
 
    @View
@@ -60,16 +69,16 @@ public class Controller
    }
    
    @Resource
-   public void users(String name) throws Exception
+   public void users(String userName) throws Exception
    {
-      if (name != null)
+      if (userName != null)
       {
-         name = name.trim();
+         userName = userName.trim();
       }
       Query query = new Query();
-      if (name != null && name.length() > 0)
+      if (userName != null && userName.length() > 0)
       {
-         query.setUserName("*" + name + "*");
+         query.setUserName("*" + userName + "*");
       }
       ListAccess<User> list = userHandler.findUsersByQuery(query);
       int from = 0;
@@ -79,22 +88,44 @@ public class Controller
    }
 
    @Resource
-   public void groups(String name) throws Exception
+   public void groups(String groupName, String userName) throws Exception
    {
-      if (name != null)
+      if (groupName != null)
       {
-         name = name.trim();
+         groupName = groupName.trim();
+      }
+      if (userName != null)
+      {
+         userName = userName.trim();
       }
       @SuppressWarnings("unchecked")
       List<Group> list = (List<Group>)groupHandler.getAllGroups();
       List<Group> groups = new ArrayList<Group>(list.size());
       for (Group group : list)
       {
-         if (name == null || name.length() == 0 || group.getGroupName().contains(name))
+         if (groupName == null || groupName.length() == 0 || group.getGroupName().contains(groupName))
          {
             groups.add(group);
          }
       }
-      groupsTemplate.render(Collections.singletonMap("groups", groups));
+      Map<String, List<String>> memberships = Collections.emptyMap();
+      if (userName != null && userName.length() > 0)
+      {
+         memberships = new HashMap<String, List<String>>();
+         Collection<Membership> membershipList = membershipHandler.findMembershipsByUser(userName);
+         for (Membership membership : membershipList)
+         {
+            List<String> a = memberships.get(membership.getGroupId());
+            if (a == null)
+            {
+               memberships.put(membership.getGroupId(), a = new ArrayList<String>());
+            }
+            a.add(membership.getMembershipType());
+         }
+      }
+      Map<String, Object> params = new HashMap<String, Object>();
+      params.put("groups", groups);
+      params.put("memberships", memberships);
+      groupsTemplate.render(params);
    }
 }

@@ -1,3 +1,18 @@
 <% groups.each { group -> %>
-  <div class="group">${group.groupName}</div>
+  <div class="group">
+  <div>${group.groupName}</div>
+  <%
+    def a = memberships[group.id];
+    if (a != null)
+    {
+      %>
+        <ul>
+          <% a.each { membership -> %>
+            <li>${membership}</li>
+          <% } %>
+        </ul>
+      <%
+    }
+  %>
+  </div>
 <% } %>
