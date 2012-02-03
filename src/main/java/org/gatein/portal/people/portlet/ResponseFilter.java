@@ -23,7 +23,7 @@ public class ResponseFilter implements RenderFilter
    {
       Element css1 = response.createElement("link");
       css1.setAttribute("rel", "stylesheet/less");
-      css1.setAttribute("href", request.getContextPath() + "/css/main.less");
+      css1.setAttribute("href", request.getContextPath() + "/css/people.less");
       response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, css1);
 
       //

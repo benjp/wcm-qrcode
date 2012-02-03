@@ -1,13 +1,16 @@
 <div id="people">
-Hello World
 
 <form id="users-search">
-<input type="text"/>
+  <fieldset>
+    <input class="input-medium search-query" type="text"/>
+  </fieldset>
 </form>
 
 <form id="groups-search">
-<input type="text"/>
-<input name="userName" type="hidden"/>
+  <fieldset>
+    <input class="input-medium search-query" type="text"/>
+    <input name="userName" type="hidden"/>
+  </fieldset>
 </form>
 
 <div id="users">Users should come here</div>
