@@ -6,12 +6,12 @@
       if (a != null)
       {
         %>
-          <ul>
+          <ul class="unstyled memberships">
             <% a.each { type, id -> %>
-              <li><span>${type}</span><a href="@{removeMembership(id=id)}">&times;</a></li>
+              <li><span class="label">${type} <a href="@{removeMembership(id=id)}">&times;</a></span></li>
             <% } %>
           </ul>
-          <ul>
+          <ul style="display:none">
             <% membershipTypes.each { type ->
                if (a[type] == null) {
             %>
