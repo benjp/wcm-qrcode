@@ -7,6 +7,9 @@
 @import "tables.less";
 @import "labels.less";
 
+//
+@grayUltraLight: #f5f5f5;
+
 #people {
 
   // Reusable down arrow
@@ -26,9 +29,23 @@
   }
 
   tbody#users, tbody#groups {
-    td:hover, td.selected {
+    td:hover {
+      background-color: @grayUltraLight;
+    }
+    td.selected {
       background-color: @grayLighter;
     }
+  }
+
+  .user input[type="checkbox"] {
+    float:right;
+    display: none;
+  }
+  .user input[type="checkbox"]:checked {
+    display: inline;
+  }
+  .user:hover input[type="checkbox"] {
+    display: inline;
   }
 
   .remove-memberships {

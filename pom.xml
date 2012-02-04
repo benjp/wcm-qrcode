@@ -41,7 +41,7 @@
       <groupId>org.juzu</groupId>
       <artifactId>juzu-core</artifactId>
       <scope>provided</scope>
-      <version>0.4.2</version>
+      <version>0.4.3</version>
     </dependency>
 
     <!-- -->
@@ -64,14 +64,7 @@
       <artifactId>juzu-overlay-gatein</artifactId>
       <type>war</type>
       <scope>provided</scope>
-      <version>0.4.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.juzu</groupId>
-      <artifactId>juzu-overlay-liferay</artifactId>
-      <type>war</type>
-      <scope>provided</scope>
-      <version>0.4.2</version>
+      <version>0.4.3</version>
     </dependency>
 
   </dependencies>

@@ -24,8 +24,7 @@
         <th>
           <form id="groups-search">
             <fieldset>
-              <input class="input-medium search-query" type="text"/>
-              <input name="userName" type="hidden"/>
+              <input name="groupName" class="input-medium search-query" type="text"/>
             </fieldset>
           </form>
         </th>

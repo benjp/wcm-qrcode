@@ -22,9 +22,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /** @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a> */
 public class Controller
@@ -96,59 +98,100 @@ public class Controller
    }
 
    @Resource
-   public void findGroups(String groupName, String userName) throws Exception
+   public void findGroups(String groupName, List<String> userName) throws Exception
    {
       if (groupName != null)
       {
          groupName = groupName.trim();
       }
-      if (userName != null)
-      {
-         userName = userName.trim();
-      }
+      
+      // All membership types
       LinkedHashSet<String> membershipTypes = new LinkedHashSet<String>();
+      
+      // All groups
+      List<Group> groups = new ArrayList<Group>();
+
+      // Map<GroupId>, Map<MembershipType, MembershipId>>
+      Map<String, Map<String, List<String>>> toRemove = new HashMap<String, Map<String, List<String>>>();
+      
+      // Map<GroupId, Map<MembershipType, UserName>> 
+      Map<String, Map<String, List<String>>> toAdd = new HashMap<String, Map<String, List<String>>>();
+      
+      // Compute the view
       for (MembershipType membershipType : (Collection<MembershipType>)membershipTypeHandler.findMembershipTypes())
       {
          membershipTypes.add(membershipType.getName());
       }
-      List<Group> groups = new ArrayList<Group>();
-      Map<String, Map<String, String>> memberships = new HashMap<String, Map<String, String>>();
       for (Group group : (List<Group>)groupHandler.getAllGroups())
       {
          if (groupName == null || groupName.length() == 0 || group.getGroupName().contains(groupName))
          {
             groups.add(group);
-            if (userName != null && userName.length() > 0)
+            if (userName != null)
             {
-               Map<String, String> groupMemberships = new HashMap<String, String>();
-               for (Membership membership : (Collection<Membership>)membershipHandler.findMembershipsByUserAndGroup(userName, group.getId()))
+               Map<String, List<String>> toRemoveByGroup = new HashMap<String, List<String>>();
+               Map<String, List<String>> toAddByGroup = new HashMap<String, List<String>>();
+               for (String _userName : userName)
                {
-                  groupMemberships.put(membership.getMembershipType(), membership.getId());
+                  Collection<Membership> membershipsInGroup = (Collection<Membership>)membershipHandler.findMembershipsByUserAndGroup(_userName, group.getId());
+                  Set<String> membershipsOutOfGroup = new HashSet<String>(membershipTypes);
+                  for (Membership membership : membershipsInGroup)
+                  {
+                     List<String> toRemoveByGroupAndByMembership = toRemoveByGroup.get(membership.getMembershipType());
+                     if (toRemoveByGroupAndByMembership == null)
+                     {
+                        toRemoveByGroup.put(membership.getMembershipType(), toRemoveByGroupAndByMembership = new ArrayList<String>());
+                     }
+                     toRemoveByGroupAndByMembership.add(membership.getId());
+                     membershipsOutOfGroup.remove(membership.getMembershipType());
+                  }
+                  for (String membership : membershipsOutOfGroup)
+                  {
+                     List<String> toAddByGroupAndMembership = toAddByGroup.get(membership);
+                     if (toAddByGroupAndMembership == null)
+                     {
+                        toAddByGroup.put(membership, toAddByGroupAndMembership = new ArrayList<String>());
+                     }
+                     toAddByGroupAndMembership.add(_userName);
+                  }
                }
-               memberships.put(group.getId(), groupMemberships);
+               toRemove.put(group.getId(), toRemoveByGroup);
+               toAdd.put(group.getId(), toAddByGroup);
             }
          }
       }
       Map<String, Object> params = new HashMap<String, Object>();
-      params.put("userName", userName);
       params.put("groups", groups);
-      params.put("memberships", memberships);
+      params.put("toRemove", toRemove);
+      params.put("toAdd", toAdd);
       params.put("membershipTypes", membershipTypes);
       groupsTemplate.render(params);
    }
 
    @Action
-   public void removeMembership(String id) throws Exception
+   public void removeMembership(List<String> id) throws Exception
    {
-      membershipHandler.removeMembership(id, true);
+      if (id != null)
+      {
+         for (String _id : id)
+         {
+            membershipHandler.removeMembership(_id, true);
+         }
+      }
    }
 
    @Action
-   public void addMembership(String type, String groupId, String userName) throws Exception
+   public void addMembership(String type, String groupId, List<String> userName) throws Exception
    {
-      Group group = groupHandler.findGroupById(groupId);
-      User user = userHandler.findUserByName(userName);
-      MembershipType membershipType = membershipTypeHandler.findMembershipType(type);
-      membershipHandler.linkMembership(user, group, membershipType, true);
+      if (userName != null)
+      {
+         Group group = groupHandler.findGroupById(groupId);
+         MembershipType membershipType = membershipTypeHandler.findMembershipType(type);
+         for (String _userName : userName)
+         {
+            User user = userHandler.findUserByName(_userName);
+            membershipHandler.linkMembership(user, group, membershipType, true);
+         }
+      }
    }
 }

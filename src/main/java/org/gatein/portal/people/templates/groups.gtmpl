@@ -2,31 +2,35 @@
   <tr>
     <td class="group">
     <%
-      def a = memberships[group.id];
-      if (a != null) {
+      def toAddByGroup = toAdd[group.id];
+      if (toAddByGroup != null && !toAddByGroup.isEmpty()) {
+
         %>
           <ul class="unstyled add-memberships">
             <li>memberships</li>
             <li>
               <ul class="unstyled">
-                <% membershipTypes.each { type ->
-                   if (a[type] == null) {
-                %>
-                  <li><span class="label"><a href="@{addMembership(type=type,groupId=group.id,userName=userName)}">${type}</a></span></li>
-                <% } } %>
+                <% toAddByGroup.each { type, userNames -> %>
+                  <li><span class="label"><a href="@{addMembership(type=type,groupId=group.id,userName=userNames)}">${type}</a></span></li>
+                <% } %>
               </ul>
             </li>
           </ul>
         <%
+
       }
     %>
     <h2>${group.groupName}</h2>
     <%
-      if (a != null && !a.isEmpty()) {
+      def toRemoveByGroup = toRemove[group.id];
+      if (toRemoveByGroup != null && !toRemoveByGroup.isEmpty()) {
         %>
           <ul class="unstyled remove-memberships">
-            <% a.each { type, id -> %>
-              <li><span class="label">${type} <a href="@{removeMembership(id=id)}">&times;</a></span></li>
+            <%
+            toRemoveByGroup.each { type, ids ->
+            def label = ids.size() == 1 ? "${type}" : "${type} (${ids.size()})";
+              %>
+              <li><span class="label">${label}<a href="@{removeMembership(id=ids)}">&times;</a></span></li>
             <% } %>
           </ul>
         <%
