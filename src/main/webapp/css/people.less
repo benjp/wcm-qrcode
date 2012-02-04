@@ -6,6 +6,7 @@
 @import "forms.less";
 @import "tables.less";
 @import "labels.less";
+@import "sprites.less";
 
 //
 @grayUltraLight: #f5f5f5;
@@ -37,17 +38,30 @@
     }
   }
 
-  .user input[type="checkbox"] {
-    float:right;
-    display: none;
+  .user {
+    .checkable {
+      float:right;
+      display: none;
+    }
+    .checkable.checked {
+      display: inline;
+      i.icon-plane {
+        display: none;
+      }
+    }
   }
-  .user input[type="checkbox"]:checked {
-    display: inline;
+  .user:hover {
+    .checkable {
+      display: inline;
+    }
+    .checkable.checked i.icon-plane {
+      display: none;
+    }
+    .checkable:not(.checked) i.icon-magnet {
+      display: none;
+    }
   }
-  .user:hover input[type="checkbox"] {
-    display: inline;
-  }
-
+  
   .remove-memberships {
     li {
       float: left;
