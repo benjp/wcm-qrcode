@@ -14,9 +14,39 @@
     }
   }
 
-  .memberships {
+  .remove-memberships {
     li {
       float: left;
+    }
+  }
+
+  .add-memberships {
+    display: none;
+    float: right;
+    ul {
+      display: none;
+      position: absolute;
+      padding: 0 1px 1px;
+      border-color: #999;
+      border-color: rgba(0,0,0,.2);
+      border-style: solid;
+      border-width: 0 1px 1px;
+      .border-radius(0 0 6px 6px);
+      .box-shadow(0 2px 4px rgba(0,0,0,.2));
+    }
+  }
+
+  .group:hover .add-memberships {
+    display: block;
+  }
+
+  .add-memberships:hover {
+    ul {
+      display: block;
+      background-color: white;
+      a {
+        color: white;
+      }
     }
   }
 
