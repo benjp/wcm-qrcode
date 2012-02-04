@@ -8,6 +8,23 @@
 @import "labels.less";
 
 #people {
+
+  // Reusable down arrow
+  .down-arrow(@color) {
+    width: 0;
+    height: 0;
+    display: inline-block;
+    content: "&darr;";
+    text-indent: -99999px;
+    vertical-align: top;
+    margin-top: 8px;
+    margin-left: 4px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid @color;
+    .opacity(50);
+  }
+
   tbody#users, tbody#groups {
     td:hover, td.selected {
       background-color: @grayLighter;
@@ -23,6 +40,9 @@
   .add-memberships {
     display: none;
     float: right;
+    > li:first-child:after {
+      .down-arrow(@black);
+    }
     ul {
       display: none;
       position: absolute;
