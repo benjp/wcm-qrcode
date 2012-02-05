@@ -84,6 +84,20 @@ $(function () {
     }
   });
 
+  $("#people").on("click", ".remove-membership,.add-membership", function(e) {
+    var url = $(this).attr("href");
+    // We should somehow display a spinning wheel to show the user that the operation
+    // is blocking
+    $.ajax({
+      url: url,
+      async: false,
+      success: function(html) {
+        $('#groups').html(html);
+      }
+    });
+    e.preventDefault();
+  });
+
   // Scroller defined before we call searchUsers below
   scroller = function() {
     $("#users").each(function() {

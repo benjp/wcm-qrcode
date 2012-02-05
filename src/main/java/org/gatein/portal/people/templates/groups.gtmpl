@@ -9,7 +9,7 @@
           <li>
             <ul class="unstyled">
               <% toAddByGroup.each { type, userNames -> %>
-                <li><span class="label"><a href="@{addMembership(type=type,groupId=group.id,userName=userNames)}">${type}</a></span></li>
+                <li><span class="label"><a class="add-membership" href="@{addMembership(type=type,groupId=group.id,userName=userNames)}">${type}</a></span></li>
               <% } %>
             </ul>
           </li>
@@ -27,7 +27,7 @@
           toRemoveByGroup.each { type, ids ->
           def label = ids.size() == 1 ? "${type}" : "${type} (${ids.size()})";
           %>
-            <li><span class="label">${label}<a href="@{removeMembership(id=ids)}">&times;</a></span></li>
+            <li><span class="label">${label}<a class="remove-membership" href="@{removeMembership(id=ids)}">&times;</a></span></li>
           <% } %>
         </ul>
       <%

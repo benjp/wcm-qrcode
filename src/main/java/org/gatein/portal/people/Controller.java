@@ -180,19 +180,26 @@ public class Controller
       groupsTemplate.render(params);
    }
 
-   @Action
+   @Resource
    public void removeMembership(List<String> id) throws Exception
    {
       if (id != null)
       {
+         List<String> userName = new ArrayList<String>(id.size());
          for (String _id : id)
          {
-            membershipHandler.removeMembership(_id, true);
+            Membership membership = membershipHandler.findMembership(_id);
+            if (membership != null)
+            {
+               userName.add(membership.getUserName());
+               membershipHandler.removeMembership(_id, true);
+            }
          }
+         findGroups("", userName);
       }
    }
 
-   @Action
+   @Resource
    public void addMembership(String type, String groupId, List<String> userName) throws Exception
    {
       if (userName != null)
@@ -204,6 +211,7 @@ public class Controller
             User user = userHandler.findUserByName(_userName);
             membershipHandler.linkMembership(user, group, membershipType, true);
          }
+         findGroups("", userName);
       }
    }
 }
