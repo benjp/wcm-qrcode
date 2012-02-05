@@ -1,7 +1,12 @@
 $(function () {
   var searchUsers = function () {
     var args = {userName:$("#users-search input[type=text]").val()};
-    $('#users').load(People.urls.findUsers, args, function () {
+    $("<div></div>").load(People.urls.findUsers, args, function () {
+      $("#users .checkable:not(.checked)").parents("tr").remove();
+      $(this).find("tr").filter(function() {
+        var id = $(this).children("td")[0].id;
+        return document.getElementById(id) == null;
+      }).appendTo("#users");
     })
   };
   var searchGroups = function (name, userName) {
