@@ -49,6 +49,8 @@ People = {
   urls : {
     findUsers : "@{findUsers()}",
     findGroups : "@{findGroups()}",
+    getProfile : "@{getProfile()}",
+    setProfile : "@{setProfile()}",
   }
 };
 </script>

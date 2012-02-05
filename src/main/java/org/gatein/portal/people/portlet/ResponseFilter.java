@@ -45,6 +45,12 @@ public class ResponseFilter implements RenderFilter
       response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, less);
 
       //
+      Element modal = response.createElement("script");
+      modal.setAttribute("type", "text/javascript");
+      modal.setAttribute("src", request.getContextPath() + "/js/bootstrap-modal.js");
+      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, modal);
+
+      //
       chain.doFilter(request, response);
    }
 

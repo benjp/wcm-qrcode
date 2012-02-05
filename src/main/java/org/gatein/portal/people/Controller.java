@@ -11,6 +11,8 @@ import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.organization.Query;
 import org.exoplatform.services.organization.User;
 import org.exoplatform.services.organization.UserHandler;
+import org.exoplatform.services.organization.UserProfile;
+import org.exoplatform.services.organization.UserProfileHandler;
 import org.juzu.Action;
 import org.juzu.Resource;
 import org.juzu.View;
@@ -35,6 +37,17 @@ public class Controller
 {
 
    /** . */
+   private static final Map<String, String> PROFILE_MAPPING = new HashMap<String, String>();
+   
+   static
+   {
+      PROFILE_MAPPING.put("job", "user.jobtitle");
+      PROFILE_MAPPING.put("cell-phone", "user.home-info.telecom.mobile.number");
+      PROFILE_MAPPING.put("work-phone", "user.business-info.telecom.mobile.number");
+      PROFILE_MAPPING.put("country", "user.home-info.postal.country");
+   }
+
+   /** . */
    @Inject
    @Path("index.gtmpl")
    Template indexTemplate;
@@ -48,6 +61,11 @@ public class Controller
    @Inject
    @Path("groups.gtmpl")
    Template groupsTemplate;
+
+   /** . */
+   @Inject
+   @Path("profile.gtmpl")
+   Template profileTemplate;
 
    /** . */
    private final OrganizationService orgService;
@@ -64,6 +82,9 @@ public class Controller
    /** . */
    private final MembershipTypeHandler membershipTypeHandler;
 
+   /** . */
+   private final UserProfileHandler userProfileHandler;
+
    @Inject
    public Controller(OrganizationService orgService)
    {
@@ -72,6 +93,7 @@ public class Controller
       this.groupHandler = orgService.getGroupHandler();
       this.membershipHandler = orgService.getMembershipHandler();
       this.membershipTypeHandler = orgService.getMembershipTypeHandler();
+      this.userProfileHandler = orgService.getUserProfileHandler();
    }
 
    @View
@@ -197,6 +219,26 @@ public class Controller
       params.put("toAdd", toAdd);
       params.put("membershipTypes", membershipTypes);
       groupsTemplate.render(params);
+   }
+   
+   @Resource
+   public void getProfile(String userName) throws Exception
+   {
+      User user = userHandler.findUserByName(userName);
+      UserProfile profile = userProfileHandler.findUserProfileByName(userName);
+      Map<String, Object> params = new HashMap<String, Object>();
+      params.put("user", user);
+      params.put("profile", profile.getUserInfoMap());
+      profileTemplate.render(params);
+   }
+
+   @Resource
+   public void setProfile(String userName, String email) throws Exception
+   {
+      User user = userHandler.findUserByName(userName);
+      user.setEmail(email);
+      userHandler.saveUser(user, true);
+      String[] foo = {};
    }
 
    @Resource

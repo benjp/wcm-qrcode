@@ -10,6 +10,49 @@ $(function () {
   var scrolling = false;
 
   //
+  $("#users").on("click", ".editable", function(e) {
+    var userName = $(this).parents(".user").attr("id");
+    // We should somehow display a spinning wheel to show the user that the operation
+    // is blocking
+    $.ajax({
+      url: People.urls.getProfile,
+      data: {
+        userName: userName
+      },
+      async: false,
+      success: function(html) {
+        $("#modal-container").html(html);
+        $("#modal").modal("show");
+      }
+    });
+    e.stopPropagation();
+    e.preventDefault();
+  });
+
+  $("#people").on("click", ".modal-footer a", function() {
+
+    //
+    var query = $("#profile-form").serialize();
+
+    // We should somehow display a spinning wheel to show the user that the operation
+    // is blocking
+    $.ajax({
+      url: People.urls.setProfile,
+      data: query,
+      async: false,
+      success: function(html) {
+      }
+    });
+
+    //
+    $("#modal").modal("hide");
+
+    //
+    e.preventDefault();
+    e.stopPropagation();
+  });
+
+  //
   var searchUsers = function (append) {
     append == append || false;
     var args = $("#users-search").serialize();
