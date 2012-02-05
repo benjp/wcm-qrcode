@@ -17,7 +17,7 @@
       <%
     }
   %>
-  <h2>${group.groupName}</h2>
+  <h3>${group.groupName}</h3>
   <%
     def toRemoveByGroup = toRemove[group.id];
     if (toRemoveByGroup != null && !toRemoveByGroup.isEmpty()) {

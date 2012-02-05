@@ -1,12 +1,37 @@
 $(function () {
-  var searchUsers = function () {
+
+  function log(str) {
+    if (typeof(console) !== "undefined") {
+      console.log(str);
+    }
+  }
+
+  // The search user will initiate the scroller once
+  var scrolling = false;
+
+  //
+  var searchUsers = function (append) {
+    append == append || false;
     var args = $("#users-search").serialize();
+    if (append) {
+      var offset = $(".user").size();
+      args = args + "&offset=" + offset;
+    }
+    log("doing request " + args)
     $("<div></div>").load(People.urls.findUsers, args, function () {
-      $("#users .checkable:not(.checked)").parents(".user").remove();
+      if (!append) {
+        $("#users .checkable:not(.checked)").parents(".user").remove();
+      }
       $(this).find(".user").filter(function() {
         var id = this.id;
         return document.getElementById(id) == null;
       }).appendTo("#users");
+
+      //
+      if (!scrolling) {
+        scrolling = true;
+        scroller();
+      }
     })
   };
   var searchGroups = function (name, userName) {
@@ -58,6 +83,21 @@ $(function () {
       searchGroups();
     }
   });
+
+  // Scroller defined before we call searchUsers below
+  scroller = function() {
+    $("#users").each(function() {
+      var scrollBox= $(this).parents(".scrollbox").get(0);
+      var scrolltop = scrollBox.scrollTop;
+      var scrollheight = scrollBox.scrollHeight;
+      var windowheight = scrollBox.clientHeight;
+       var scrolloffset = 20;
+      if(scrolltop >= (scrollheight - (windowheight + scrolloffset))) {
+        searchUsers(true);
+      }
+    });
+    setTimeout("scroller();", 1500);
+  };
 
   // Init UI
   searchUsers();

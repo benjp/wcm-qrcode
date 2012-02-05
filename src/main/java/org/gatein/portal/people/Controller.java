@@ -19,6 +19,7 @@ import org.juzu.template.Template;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public class Controller
    }
    
    @Resource
-   public void findUsers(String userName) throws Exception
+   public void findUsers(String userName, String offset, String limit) throws Exception
    {
       if (userName != null)
       {
@@ -90,11 +91,22 @@ public class Controller
       {
          query.setUserName("*" + userName + "*");
       }
-      ListAccess<User> list = userHandler.findUsersByQuery(query);
       int from = 0;
+      if (offset != null) 
+      {
+         from = Integer.parseInt(offset);
+      }
       int size = 10;
-      int length = Math.min(from + size, list.getSize());
-      usersTemplate.render(Collections.singletonMap("users", list.load(from, length)));
+      if (limit != null)
+      {
+         size = Integer.parseInt(limit);
+      }
+      ListAccess<User> list = userHandler.findUsersByQuery(query);
+      int len = list.getSize();
+      from = Math.min(from, len);
+      size = Math.min(len - from, size);
+      User[] users = list.load(from, size);
+      usersTemplate.render(Collections.singletonMap("users", users));
    }
 
    @Resource
