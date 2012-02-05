@@ -7,7 +7,7 @@
         <th>
           <form id="users-search">
             <fieldset>
-              <input class="input-medium search-query" type="text"/>
+              <input name="userName" class="input-medium search-query" type="text"/>
             </fieldset>
           </form>
         </th>

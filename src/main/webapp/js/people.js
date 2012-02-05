@@ -1,6 +1,6 @@
 $(function () {
   var searchUsers = function () {
-    var args = {userName:$("#users-search input[type=text]").val()};
+    var args = $("#users-search").serialize();
     $("<div></div>").load(People.urls.findUsers, args, function () {
       $("#users .checkable:not(.checked)").parents("tr").remove();
       $(this).find("tr").filter(function() {
