@@ -47,6 +47,10 @@
         display: none;
       }
     }
+    .editable {
+      float:right;
+      display: none;
+    }
   }
 
   .user.selected {
@@ -55,7 +59,7 @@
 
   .user:hover {
     background-color: @grayUltraLight;
-    .checkable {
+    .checkable, .editable {
       display: inline;
     }
     .checkable.checked i.icon-plane {
