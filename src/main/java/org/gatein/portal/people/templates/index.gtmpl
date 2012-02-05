@@ -1,38 +1,26 @@
 <div id="people" class="row">
 
 <div class="span5">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>
-          <form id="users-search">
-            <fieldset>
-              <input name="userName" class="input-medium search-query" type="text"/>
-            </fieldset>
-          </form>
-        </th>
-      </tr>
-    </thead>
-    <tbody id="users">
-    </tbody>
-  </table>
+  <div>
+    <form id="users-search">
+      <fieldset>
+        <input name="userName" class="input-medium search-query" type="text"/>
+      </fieldset>
+    </form>
+  </div>
+  <ul id="users" class="unstyled">
+  </ul>
 </div>
 <div class="span5">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>
-          <form id="groups-search">
-            <fieldset>
-              <input name="groupName" class="input-medium search-query" type="text"/>
-            </fieldset>
-          </form>
-        </th>
-      </tr>
-    </thead>
-    <tbody id="groups">
-    </tbody>
-  </table>
+  <div>
+    <form id="groups-search">
+      <fieldset>
+        <input name="groupName" class="input-medium search-query" type="text"/>
+      </fieldset>
+    </form>
+  </div>
+  <ul id="groups" class="unstyled">
+  </ul>
 </div>
 
 <script type="text/javascript">

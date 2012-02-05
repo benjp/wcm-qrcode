@@ -1,41 +1,38 @@
 <% groups.each { group -> %>
-  <tr>
-    <td class="group">
-    <%
-      def toAddByGroup = toAdd[group.id];
-      if (toAddByGroup != null && !toAddByGroup.isEmpty()) {
-
-        %>
-          <ul class="unstyled add-memberships">
-            <li>memberships</li>
-            <li>
-              <ul class="unstyled">
-                <% toAddByGroup.each { type, userNames -> %>
-                  <li><span class="label"><a href="@{addMembership(type=type,groupId=group.id,userName=userNames)}">${type}</a></span></li>
-                <% } %>
-              </ul>
-            </li>
-          </ul>
-        <%
-
-      }
-    %>
-    <h2>${group.groupName}</h2>
-    <%
-      def toRemoveByGroup = toRemove[group.id];
-      if (toRemoveByGroup != null && !toRemoveByGroup.isEmpty()) {
-        %>
-          <ul class="unstyled remove-memberships">
-            <%
-            toRemoveByGroup.each { type, ids ->
-            def label = ids.size() == 1 ? "${type}" : "${type} (${ids.size()})";
-              %>
-              <li><span class="label">${label}<a href="@{removeMembership(id=ids)}">&times;</a></span></li>
-            <% } %>
-          </ul>
-        <%
-      }
-    %>
-    </td>
-  </tr>
+  <li class="group">
+  <%
+    def toAddByGroup = toAdd[group.id];
+    if (toAddByGroup != null && !toAddByGroup.isEmpty()) {
+      %>
+        <ul class="unstyled add-memberships">
+          <li>memberships</li>
+          <li>
+            <ul class="unstyled">
+              <% toAddByGroup.each { type, userNames -> %>
+                <li><span class="label"><a href="@{addMembership(type=type,groupId=group.id,userName=userNames)}">${type}</a></span></li>
+              <% } %>
+            </ul>
+          </li>
+        </ul>
+      <%
+    }
+  %>
+  <h2>${group.groupName}</h2>
+  <%
+    def toRemoveByGroup = toRemove[group.id];
+    if (toRemoveByGroup != null && !toRemoveByGroup.isEmpty()) {
+      %>
+        <ul class="unstyled remove-memberships">
+          <%
+          toRemoveByGroup.each { type, ids ->
+          def label = ids.size() == 1 ? "${type}" : "${type} (${ids.size()})";
+          %>
+            <li><span class="label">${label}<a href="@{removeMembership(id=ids)}">&times;</a></span></li>
+          <% } %>
+        </ul>
+      <%
+    }
+  %>
+  <div style="clear:both"></div>
+  </li>
 <% } %>

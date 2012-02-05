@@ -1,8 +1,6 @@
 <% users.each { user -> %>
-  <tr>
-    <td id="${user.userName}" class="user">
-      <a class="checkable"href="#"><i class="icon-search icon-plane"></i><i class="icon-search icon-magnet"></i></a>
-      <h2>${user.firstName} ${user.lastName}</h2>
-    </td>
-  </tr>
+  <li id="${user.userName}" class="user">
+    <a class="checkable"href="#"><i class="icon-search icon-plane"></i><i class="icon-search icon-magnet"></i></a>
+    <h2>${user.firstName} ${user.lastName}</h2>
+  </li>
 <% } %>

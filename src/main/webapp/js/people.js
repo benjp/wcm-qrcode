@@ -2,9 +2,9 @@ $(function () {
   var searchUsers = function () {
     var args = $("#users-search").serialize();
     $("<div></div>").load(People.urls.findUsers, args, function () {
-      $("#users .checkable:not(.checked)").parents("tr").remove();
-      $(this).find("tr").filter(function() {
-        var id = $(this).children("td")[0].id;
+      $("#users .checkable:not(.checked)").parents(".user").remove();
+      $(this).find(".user").filter(function() {
+        var id = this.id;
         return document.getElementById(id) == null;
       }).appendTo("#users");
     })
