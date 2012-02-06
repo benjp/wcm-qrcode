@@ -1,10 +1,20 @@
-<div id="people" class="row">
+<div id="people">
 
-<div class="span5">
+<div id="modal-container">
+</div>
+
+<div id="foo">
+
+<div class="span4">
   <div>
-    <form id="users-search">
+    <form id="users-search" class="form-search">
+      <legend>Users</legend>
       <fieldset>
-        <input name="userName" class="input-medium search-query" type="text"/>
+        <div class="control-group">
+          <div class="controls">
+            <input name="userName" class="input-medium span3 search-query" type="text" placeholder="Search"/>
+          </div>
+        </div>
       </fieldset>
     </form>
   </div>
@@ -13,11 +23,16 @@
     </ul>
   </div>
 </div>
-<div class="span5">
+<div class="span4">
   <div>
-    <form id="groups-search">
+    <form id="groups-search" class="form-search">
+      <legend>Memberships</legend>
       <fieldset>
-        <input name="groupName" class="input-medium search-query" type="text"/>
+        <div class="control-group">
+          <div class="controls">
+            <input name="groupName" class="input-medium span3 search-query" type="text" placeholder="Search"/>
+          </div>
+        </div>
       </fieldset>
     </form>
   </div>
@@ -27,6 +42,8 @@
   </div>
 </div>
 
+<div style="clear:both"></div>
+
 <script type="text/javascript">
 People = {
   urls : {
@@ -35,5 +52,7 @@ People = {
   }
 };
 </script>
+
+</div>
 
 </div>

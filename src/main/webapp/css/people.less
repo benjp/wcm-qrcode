@@ -7,11 +7,19 @@
 @import "tables.less";
 @import "labels.less";
 @import "sprites.less";
+@import "layouts.less";
 
 //
 @grayUltraLight: #f5f5f5;
 
 #people {
+
+  padding: 10px 0px;
+
+  // Remove dots line in FF
+  a:active, a:focus {
+    outline: 0;
+  }
 
   // Reusable down arrow
   .down-arrow(@color) {
@@ -29,8 +37,30 @@
     .opacity(50);
   }
 
+  // Empty icon
   .icon-empty {
     background-image: none;
+  }
+
+  // Define the app width and center it
+  #foo {
+    width : 640px;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #fAfAfA;
+    .border-radius(6px);
+    .box-shadow();
+  }
+
+  // Center search blocks
+  #users-search, #groups-search {
+    input[type=text] {
+      .center-block;
+    }
   }
 
   .user, .group {
@@ -38,6 +68,11 @@
     line-height: @baseLineHeight;
     text-align: left;
     border-top: 1px solid #ddd;
+  }
+
+  .display-name {
+    line-height: @baseLineHeight * 1.5;
+    font-size: 18px;
   }
 
   // magned : selected
@@ -58,7 +93,7 @@
       float:right;
       display: none;
     }
-    h3 {
+    .display-name {
       display: inline;
     }
   }
@@ -123,7 +158,6 @@
       border-color: rgba(0,0,0,.2);
       border-style: solid;
       border-width: 0 1px 1px;
-      .border-radius(0 0 6px 6px);
       .box-shadow(0 2px 4px rgba(0,0,0,.2));
     }
   }
@@ -143,7 +177,7 @@
   }
 
   .group {
-    h3:nth-last-child(2) {
+    .display-name:nth-last-child(2) {
       color: @grayLight;
     }
   }

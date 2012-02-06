@@ -17,7 +17,7 @@
       <%
     }
   %>
-  <h3>${group.groupName}</h3>
+  <div class="display-name">${group.groupName}</div>
   <%
     def toRemoveByGroup = toRemove[group.id];
     if (toRemoveByGroup != null && !toRemoveByGroup.isEmpty()) {
@@ -27,7 +27,7 @@
           toRemoveByGroup.each { type, ids ->
           def label = ids.size() == 1 ? "${type}" : "${type} (${ids.size()})";
           %>
-            <li><span class="label">${label}<a class="remove-membership" href="@{removeMembership(id=ids)}">&times;</a></span></li>
+            <li><span class="label">${label} <a class="remove-membership" href="@{removeMembership(id=ids)}">&times;</a></span></li>
           <% } %>
         </ul>
       <%
