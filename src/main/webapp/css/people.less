@@ -29,6 +29,10 @@
     .opacity(50);
   }
 
+  .icon-empty {
+    background-image: none;
+  }
+
   .user, .group {
     padding: 8px;
     line-height: @baseLineHeight;
@@ -36,20 +40,26 @@
     border-top: 1px solid #ddd;
   }
 
+  // magned : selected
+  // plane : grey
   .user {
-    .checkable {
-      float:right;
+    i.icon-plane, i.icon-magnet {
       display: none;
     }
     .checkable.checked {
-      display: inline;
-      i.icon-plane {
+      i.icon-empty {
         display: none;
+      }
+      i.icon-magnet {
+        display: inline-block;
       }
     }
     .editable {
       float:right;
       display: none;
+    }
+    h3 {
+      display: inline;
     }
   }
 
@@ -59,14 +69,22 @@
 
   .user:hover {
     background-color: @grayUltraLight;
-    .checkable, .editable {
-      display: inline;
-    }
-    .checkable.checked i.icon-plane {
+    i.icon-empty, i.icon-magnet {
       display: none;
     }
-    .checkable:not(.checked) i.icon-magnet {
-      display: none;
+    i.icon-plane {
+      display: inline-block;
+    }
+    .editable {
+      display: inline-block;
+    }
+    .checkable.checked {
+      i.icon-empty, i.icon-plane {
+        display: none;
+      }
+      i.icon-magnet {
+        display: inline-block;
+      }
     }
   }
 

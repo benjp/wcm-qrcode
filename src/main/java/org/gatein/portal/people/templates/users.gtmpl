@@ -1,7 +1,7 @@
 <% users.each { user -> %>
   <li id="${user.userName}" class="user">
-    <a class="checkable"href="#"><i class="icon-search icon-plane"></i><i class="icon-search icon-magnet"></i></a>
     <a class="editable" href="#"><i class="icon-search icon-edit"></i></a>
+    <a class="checkable"href="#"><i class="icon-search icon-empty"></i><i class="icon-search icon-plane"></i><i class="icon-search icon-magnet"></i></a>
     <h3>${user.firstName} ${user.lastName}</h3>
   </li>
 <% } %>
