@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -124,7 +125,7 @@ public class Controller
       List<Group> groups = new ArrayList<Group>();
 
       // Map<GroupId>, Map<MembershipType, MembershipId>>
-      Map<String, Map<String, List<String>>> toRemove = new HashMap<String, Map<String, List<String>>>();
+      final Map<String, Map<String, List<String>>> toRemove = new HashMap<String, Map<String, List<String>>>();
       
       // Map<GroupId, Map<MembershipType, UserName>> 
       Map<String, Map<String, List<String>>> toAdd = new HashMap<String, Map<String, List<String>>>();
@@ -172,6 +173,24 @@ public class Controller
             }
          }
       }
+      Collections.sort(groups, new Comparator<Group>()
+      {
+         public int compare(Group o1, Group o2)
+         {
+            Map<?, ?> m1 = toRemove.get(o1.getId());
+            Map<?, ?> m2 = toRemove.get(o2.getId());
+            boolean b1 = m1 != null && m1.size() > 0;
+            boolean b2 = m2 != null && m2.size() > 0;
+            if (b1 != b2)
+            {
+               return b1 ? -1 : 1;
+            }
+            else
+            {
+               return o1.getId().compareTo(o2.getId());
+            }
+         }
+      });
       Map<String, Object> params = new HashMap<String, Object>();
       params.put("groups", groups);
       params.put("toRemove", toRemove);
