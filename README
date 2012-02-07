@@ -1,0 +1,19 @@
+The People application provides easy and powerful Organization management for GateIn.
+
+screenshot :
+
+- Users memberships edition: http://dl.dropbox.com/u/4392533/users-memberships-edition-screenshot.png
+
+what is done:
+
+- Users membership edition
+- Users basic profile edition
+
+to be done:
+
+- Full profile edition
+- Group membership edition (same than user membership but with the columns swapped)
+- Group edition (CRUD)
+- Membership type edition (CRUD)
+
+contributions are welcome :-)
