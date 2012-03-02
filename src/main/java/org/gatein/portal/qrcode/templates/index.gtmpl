@@ -1,14 +1,5 @@
-<div id="qrcode">
+<div id="qrcode_div"></div>
 
-<br/>
-<br/>
-QRCODE HERE
-<br/>
-<br/>
-
-<div style="clear:both"></div>
-
-<script type="text/javascript">
+<script>
+      $('#qrcode_div').qrcode("this is a test");
 </script>
-
-</div>

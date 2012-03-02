@@ -27,18 +27,10 @@ public class ResponseFilter implements RenderFilter
       jq.setAttribute("src", request.getContextPath() + "/js/jquery-1.7.1.min.js");
       response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, jq);
 
-      //
-      Element people = response.createElement("script");
-      people.setAttribute("type", "text/javascript");
-      people.setAttribute("src", request.getContextPath() + "/js/qrcode.js");
-      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, people);
-
-      //
-      Element less = response.createElement("script");
-      less.setAttribute("type", "text/javascript");
-      less.setAttribute("src", request.getContextPath() + "/js/less-1.2.1.min.js");
-      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, less);
-
+      Element jqq = response.createElement("script");
+      jqq.setAttribute("type", "text/javascript");
+      jqq.setAttribute("src", request.getContextPath() + "/js/jquery.qrcode.min.js");
+      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, jqq);
 
       //
       chain.doFilter(request, response);
