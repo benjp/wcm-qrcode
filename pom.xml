@@ -4,8 +4,8 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.gatein.portal</groupId>
-  <artifactId>people</artifactId>
+  <groupId>org.exoplatform.ecms</groupId>
+  <artifactId>qrcode</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
@@ -70,7 +70,7 @@
   </dependencies>
 
   <build>
-    <finalName>people</finalName>
+    <finalName>qrcode</finalName>
     <plugins>
 
       <plugin>
@@ -129,12 +129,12 @@
                   <artifactItems>
                     <artifactItem>
                       <groupId>org.gatein.portal</groupId>
-                      <artifactId>people</artifactId>
+                      <artifactId>qrcode</artifactId>
                       <version>1.0-SNAPSHOT</version>
                       <type>war</type>
                       <overWrite>false</overWrite>
-                      <outputDirectory>/Users/julien/java/gatein-server/webapps</outputDirectory>
-                      <destFileName>people.war</destFileName>
+                      <outputDirectory>/Users/benjamin/java/demos/eXo-Platform-tomcat-3.5.0-GA/tomcat-bundle/webapps</outputDirectory>
+                      <destFileName>qrcode.war</destFileName>
                     </artifactItem>
                   </artifactItems>
                 </configuration>

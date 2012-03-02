@@ -1,4 +1,4 @@
-package org.gatein.portal.people;
+package org.gatein.portal.qrcode;
 
 import org.exoplatform.container.PortalContainer;
 

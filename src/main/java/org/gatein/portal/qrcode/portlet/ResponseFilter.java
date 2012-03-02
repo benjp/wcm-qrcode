@@ -1,4 +1,4 @@
-package org.gatein.portal.people.portlet;
+package org.gatein.portal.qrcode.portlet;
 
 import org.w3c.dom.Element;
 
@@ -21,11 +21,6 @@ public class ResponseFilter implements RenderFilter
 
    public void doFilter(RenderRequest request, RenderResponse response, FilterChain chain) throws IOException, PortletException
    {
-      Element css1 = response.createElement("link");
-      css1.setAttribute("rel", "stylesheet/less");
-      css1.setAttribute("href", request.getContextPath() + "/css/people.less");
-      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, css1);
-
       //
       Element jq = response.createElement("script");
       jq.setAttribute("type", "text/javascript");
@@ -35,7 +30,7 @@ public class ResponseFilter implements RenderFilter
       //
       Element people = response.createElement("script");
       people.setAttribute("type", "text/javascript");
-      people.setAttribute("src", request.getContextPath() + "/js/people.js");
+      people.setAttribute("src", request.getContextPath() + "/js/qrcode.js");
       response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, people);
 
       //
@@ -44,11 +39,6 @@ public class ResponseFilter implements RenderFilter
       less.setAttribute("src", request.getContextPath() + "/js/less-1.2.1.min.js");
       response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, less);
 
-      //
-      Element modal = response.createElement("script");
-      modal.setAttribute("type", "text/javascript");
-      modal.setAttribute("src", request.getContextPath() + "/js/bootstrap-modal.js");
-      response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, modal);
 
       //
       chain.doFilter(request, response);

@@ -5,8 +5,8 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd
    http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
    <portlet>
-     <portlet-name>PeopleApplication</portlet-name>
-     <display-name xml:lang="EN">GateIn People Application</display-name>
+     <portlet-name>QRCodeApplication</portlet-name>
+     <display-name xml:lang="EN">QRCode Application</display-name>
      <portlet-class>org.juzu.portlet.JuzuPortlet</portlet-class>
      <init-param>
        <name>juzu.run_mode</name>
@@ -23,17 +23,17 @@
        <mime-type>text/html</mime-type>
      </supports>
      <portlet-info>
-       <title>Gatein People</title>
+       <title>WCM QRCode</title>
      </portlet-info>
    </portlet>
 
    <filter>
      <filter-name>ResponseFilter</filter-name>
-     <filter-class>org.gatein.portal.people.portlet.ResponseFilter</filter-class>
+     <filter-class>org.gatein.portal.qrcode.portlet.ResponseFilter</filter-class>
      <lifecycle>RENDER_PHASE</lifecycle>
    </filter>
    <filter-mapping>
      <filter-name>ResponseFilter</filter-name>
-     <portlet-name>PeopleApplication</portlet-name>
+     <portlet-name>QRCodeApplication</portlet-name>
    </filter-mapping>
 </portlet-app>
