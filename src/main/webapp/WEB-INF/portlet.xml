@@ -24,23 +24,16 @@
      </supports>
      <portlet-info>
        <title>WCM QRCode</title>
+       <short-title>WCM QRCode</short-title>
+       <keywords>Content</keywords>
      </portlet-info>
      <portlet-preferences>
        <preference>
          <name>size</name>
-         <value>64</value>
+         <value>128</value>
          <read-only>false</read-only>
        </preference>
      </portlet-preferences>
    </portlet>
 
-   <filter>
-     <filter-name>ResponseFilter</filter-name>
-     <filter-class>org.gatein.portal.qrcode.portlet.ResponseFilter</filter-class>
-     <lifecycle>RENDER_PHASE</lifecycle>
-   </filter>
-   <filter-mapping>
-     <filter-name>ResponseFilter</filter-name>
-     <portlet-name>QRCodeApplication</portlet-name>
-   </filter-mapping>
 </portlet-app>

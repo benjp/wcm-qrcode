@@ -41,7 +41,7 @@
       <groupId>org.juzu</groupId>
       <artifactId>juzu-core</artifactId>
       <scope>provided</scope>
-      <version>0.4.3</version>
+      <version>0.4.5-SNAPSHOT</version>
     </dependency>
 
     <!-- -->
@@ -60,13 +60,13 @@
       <dependency>
           <groupId>org.exoplatform.portal</groupId>
           <artifactId>exo.portal.component.portal</artifactId>
-          <version>3.2.3-PLF-SNAPSHOT</version>
+          <version>3.2.3-PLF</version>
           <scope>provided</scope>
       </dependency>
       <dependency>
           <groupId>org.exoplatform.portal</groupId>
           <artifactId>exo.portal.webui.portal</artifactId>
-          <version>3.2.3-PLF-SNAPSHOT</version>
+          <version>3.2.3-PLF</version>
           <scope>provided</scope>
       </dependency>
 
@@ -76,7 +76,7 @@
       <artifactId>juzu-overlay-gatein</artifactId>
       <type>war</type>
       <scope>provided</scope>
-      <version>0.4.3</version>
+      <version>0.4.5-SNAPSHOT</version>
     </dependency>
 
   </dependencies>
@@ -145,7 +145,7 @@
                       <version>1.0-SNAPSHOT</version>
                       <type>war</type>
                       <overWrite>false</overWrite>
-                      <outputDirectory>/Users/benjamin/java/demos/eXo-Platform-tomcat-3.5.0-GA/tomcat-bundle/webapps</outputDirectory>
+                      <outputDirectory>/Users/benjamin/java/demos/eXo-Platform-tomcat-3.5.3-SS/tomcat-bundle/webapps</outputDirectory>
                       <destFileName>qrcode.war</destFileName>
                     </artifactItem>
                   </artifactItems>
