@@ -1,19 +1,6 @@
-The People application provides easy and powerful Organization management for GateIn.
-
-screenshot :
-
-- Users memberships edition: http://dl.dropbox.com/u/4392533/users-memberships-edition-screenshot.png
+The QRCode application provides a quick QRCode integration to GateIn.
+It simple generates a QRCode on each page based on the current URL.
 
 what is done:
 
-- Users membership edition
-- Users basic profile edition
-
-to be done:
-
-- Full profile edition
-- Group membership edition (same than user membership but with the columns swapped)
-- Group edition (CRUD)
-- Membership type edition (CRUD)
-
-contributions are welcome :-)
+- QRCode w/ portlet preference for size
